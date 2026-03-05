@@ -1,7 +1,7 @@
 <h2>Lista de Usuários</h2>
-
+<br><br>
 <a href="index.php?acao=criar">Novo Usuário</a>
-
+<br><br>
 <style>
 table {
     border-collapse: collapse;

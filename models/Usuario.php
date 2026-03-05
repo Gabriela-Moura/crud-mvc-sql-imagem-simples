@@ -9,10 +9,10 @@ function listarUsuarios() {
     return mysqli_fetch_all($resultado, MYSQLI_ASSOC);
 }
 
-function inserirUsuario($nome, $email, $imagem) {
+function inserirUsuario($nome, $email, $imagem, $login, $senha, $papel) {
     $con = conectar();
     //id está em auto increment
-    $sql = "INSERT INTO usuario(nome, email, imagem) VALUES ('$nome', '$email', '$imagem')";
+    $sql = "INSERT INTO usuario(nome, email, imagem, login, senha, papel) VALUES ('$nome', '$email', '$imagem', '$login', '$senha', '$papel')";
 
     mysqli_query($con, $sql);
 }
@@ -25,17 +25,22 @@ function buscarUsuario($id) {
     return mysqli_fetch_assoc($resultado);
 }
        
-function atualizarUsuario($id, $nome, $email, $imagem) {
+function atualizarUsuario($id, $nome, $email, $imagem, $login, $senha, $papel) {
     $con = conectar();
-//echo ("$id.$nome.$email.$imagem");
-    $sql = "UPDATE usuario SET nome='$nome', email='$email', imagem='$imagem' WHERE id=$id";
-           // UPDATE usuario SET nome='RIcardo Akira', email='email@email', imagem='img/cachorro.jpg' WHERE id=2   
+    $sql = "UPDATE usuario SET nome='$nome', email='$email', imagem='$imagem', login='$login', senha='$senha', papel='$papel' WHERE id=$id";
     mysqli_query($con, $sql);
 }
-
+//adicionar um login, id, senha FROM usuario WHERE login=$login e senha=$senha
 function excluirUsuario($id) {
     $con = conectar();
     $sql="DELETE FROM usuario WHERE id=$id";
     
     mysqli_query($con, $sql);
+}
+
+function login_adm($login, $senha) {
+    $con = conectar();
+    $sql = "SELECT id, nome, login, senha FROM usuario WHERE login='$login' AND senha='$senha'";
+    $resultado = mysqli_query($con, $sql);
+    return mysqli_fetch_assoc($resultado);
 }
